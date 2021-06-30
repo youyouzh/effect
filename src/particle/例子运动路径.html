@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>例子运动路径</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+</head>
+<body>
+
+<script>
+    var blobs=[];
+    var numBlobs=200;
+
+    function setup() {
+        createCanvas(windowWidth, windowHeight);
+        for(var i=0; i<numBlobs; i++){
+            blobs.push(new Blob(random(TWO_PI),height/4));
+        }
+    }
+
+    function draw() {
+        background(50,100);
+        blobs.forEach(function(blob){
+            blob.show(width/2, height/2);
+        });
+    }
+
+    function Blob(a,r) {
+        var rotSteps=random(300,700);
+        var aInc=PI/rotSteps;
+        var aWobbleInc=TWO_PI/(rotSteps/5);
+        var aWobblePhase=random(PI/4);
+        var aWobble=0;
+        var rWobble=random(r/2, r/4);
+        var trail=[];
+        var trailMax=8;
+        var dir=random(10)<5?-1:1;
+
+        this.show=function(x,y){
+            noStroke();
+            if(dir>0){
+                fill(50,100,255,100);
+            } else {
+                fill(255,100,120,100);
+            }
+            push();
+            translate(x,y);
+            rotate(-PI/6);
+            var rNow=r+sin(a*5+(aWobblePhase*noise(frameCount/50)*5))*(r/5+rWobble*noise(0.5+frameCount/50));
+            var xNow=cos(a)*rNow;
+            var yNow=sin(a)*rNow;
+            trail.push({x:xNow, y:yNow});
+            if(trail.length>trailMax){
+                trail.shift();
+            }
+            // ellipse(0,rNow,10);
+            ellipse(xNow,yNow,height/50);
+            trail.forEach(function(posThen,i){
+                fill(255,i*130/trailMax);
+                noStroke();
+                ellipse(posThen.x, posThen.y,i*(height/150)/trailMax);
+            });
+            fill(255);
+            ellipse(xNow,yNow,height/250);
+            pop();
+            a+=aInc*dir;
+            aWobble+=aWobbleInc;
+        };
+    }
+</script>
+</body>
+</html>
