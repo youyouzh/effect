@@ -28,20 +28,9 @@
         canvas {
             display: block;
         }
-
-        p{
-            position: fixed;
-            top: 5%;
-            left: 2%;
-            color: #fff;
-            font-size: 32px;
-            font-weight: bold;
-            font-family: Arial, Helvetica, sans-serif;
-        }
     </style>
 </head>
 <body>
-<p>Window Mousemove</p>
 <div id="wrap">
     <canvas id="canvas">
         canvas not support
@@ -58,6 +47,14 @@
         static randomColor(colors) {
             return colors[Math.floor(Math.random() * colors.length)]
         }
+
+        static randomColor16() {//十六进制颜色随机
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            return '#' + r.toString(16) + g.toString(16) + b.toString(16);
+        }
+
     }
 
     class Vector2 {
@@ -197,12 +194,12 @@
             height = canvas.height = window.innerHeight;
         }
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 500; i++) {
             particles.push(new Particle(
                 Math.random() * width,
                 Math.random() * height,
-                3,
-                Utils.randomColor(colors),
+                5,
+                Utils.randomColor16(colors),
             ))
             particles[i].mousemove();
         }
@@ -211,10 +208,9 @@
         function render() {
             ctx.fillStyle = 'hsla(260,40%,5%,.2)';
             ctx.fillRect(0, 0, width, height);
-            for (let i = 0; i < particles.length; i++) {
-                var p = particles[i]
-                p.update();
-                p.draw();
+            for (const particle of particles) {
+                particle.update();
+                particle.draw();
             }
             requestAnimationFrame(render);
         }
