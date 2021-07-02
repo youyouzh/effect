@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas重力双摆</title>
+    <style>
+        body,
+        html {
+            margin: 0px;
+            padding: 0px;
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+<div></div>
+
+<script>
+    var canvas = document.createElement("canvas"),
+        c = canvas.getContext("2d");
+    var w = canvas.width = window.innerWidth,
+        h = canvas.height = window.innerHeight;
+
+    document.body.appendChild(canvas);
+    c.fillStyle = "rgba(30,30,30,1)";
+    c.fillRect(0, 0, w, h);
+    var opts = {
+            m1: 1,
+            m2: 1,
+            l1: h/4,
+            l2: h/4,
+            angle1: Math.random()*360,
+            angle2: Math.random()*360,
+        },
+        gui = new dat.GUI(),
+        first = true;
+
+    function init() {
+        if (first) {
+            var f = gui;
+            f.add(opts, 'm1', 0, 10).step(0.01);
+            f.add(opts, 'm2', 0, 10).step(0.01);
+            f.add(opts, 'l1', 1, 200).step(1);
+            f.add(opts, 'l2', 1, 200).step(1);
+            f.add(opts, 'angle1', 1, 360).step(1);
+            f.add(opts, 'angle2', 1, 360).step(1);
+            loop();
+            first = false;
+        }
+
+        a1 = opts.angle1;
+        a2 = opts.angle2;
+    }
+
+    var ox = w/2,
+        oy = h/2,
+        l1 = opts.l1,
+        x1 = 0,
+        y1 = 0,
+        m1 = opts.m1,
+        l2 = opts.l2,
+        x2 = 0,
+        y2 = 0,
+        m2 = opts.m2,
+        gr = 9.81,
+        pi = Math.PI,
+        a1 = opts.angle1*(pi/180),
+        a2 = opts.angle2*(pi/180),
+        a1t = 0,
+        a1tt = 0,
+        a2t = 0,
+        a2tt = 0,
+        t = 0.1,
+        u = 1+opts.m1/opts.m2,
+        ok = false,
+        hist1 = [],
+        hist2 = [];
+
+    function draw() {
+
+        x1 = ox+opts.l1*Math.sin(a1);
+        y1 = oy+opts.l1*Math.cos(a1);
+        x2 = x1+opts.l2*Math.sin(a2);
+        y2 = y1+opts.l2*Math.cos(a2);
+
+        window.onmousedown = function() {
+            ok = true;
+        };
+        window.onmouseup = function() {
+            ok = false;
+        };
+
+        if(ok){
+            a1 = opts.angle1*(pi/180),
+                a2 = opts.angle2*(pi/180),
+                a1t = 0,
+                a1tt = 0,
+                a2t = 0,
+                a2tt = 0;
+        }
+        else{
+
+            a1 += a1t * t;
+            a2 += a2t * t;
+            a1t += a1tt * t;
+            a2t += a2tt * t;
+            a1tt = (gr*(Math.sin(a2)*Math.cos(a1-a2)-u*Math.sin(a1))-Math.sin(a1-a2)*(opts.l2*a2t*a2t+opts.l1*a1t*a1t*Math.cos(a1-a2)))/(opts.l1*(u-Math.pow(Math.cos(a1-a2),2)));
+            a2tt = (gr*u*(Math.sin(a1)*Math.cos(a1-a2)-Math.sin(a2))+Math.sin(a1-a2)*(u*opts.l1*a1t*a1t+opts.l2*a2t*a2t*Math.cos(a1-a2)))/(opts.l2*(u-Math.pow(Math.cos(a1-a2),2)));
+
+            a1tt *= 0.9;
+            a2tt *= 0.9;
+
+        }
+
+        var pos1 = {
+            x: x1,
+            y: y1
+        };
+
+        var pos2 = {
+            x: x2,
+            y: y2
+        };
+
+        hist1.push(pos1);
+
+        hist2.push(pos2);
+
+        if(hist1.length >= 100){
+            hist1.splice(0,1);
+        }
+
+        if(hist2.length >= 1000){
+            hist2.splice(0,1);
+        }
+
+        c.beginPath();
+        c.lineTo(ox,oy);
+        c.lineTo(x1,y1);
+        c.lineTo(x2,y2);
+        c.strokeStyle="white";
+        c.stroke();
+
+        c.beginPath();
+        c.arc(x1,y1,opts.m1*8,0,2*pi);
+        c.fillStyle="rgba(0,255,255,0.5)";
+        c.fill();
+
+        c.beginPath();
+        c.arc(x2,y2,opts.m2*8,0,2*pi);
+        c.fillStyle="rgba(255,150,0,0.5)";
+        c.fill();
+
+        c.beginPath();
+        for(var ste1 of hist1){
+            c.lineTo(ste1.x,ste1.y);
+        }
+        c.strokeStyle="rgba(0,255,255,0.5)";
+        c.lineWidth="4";
+        c.stroke();
+
+        c.beginPath();
+        for(var ste2 of hist2){
+            c.lineTo(ste2.x,ste2.y);
+        }
+        c.strokeStyle="rgba(255,150,0,0.5)";
+        c.lineWidth="1";
+        c.stroke();
+        c.lineWidth="1";
+
+    }
+
+    var mouse = {
+        x: w / 2,
+        y: h / 2
+    };
+    var last_mouse = {
+        x: 0,
+        y: 0
+    };
+
+    canvas.addEventListener(
+        "mousemove",
+        function(e) {
+            last_mouse.x = mouse.x;
+            last_mouse.y = mouse.y;
+
+            mouse.x = e.pageX - this.offsetLeft;
+            mouse.y = e.pageY - this.offsetTop;
+        },
+        false
+    );
+
+    window.requestAnimFrame = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    function loop() {
+
+        setTimeout(function() {
+            window.requestAnimFrame(loop);
+            c.fillStyle = "rgba(30,30,30,1)";
+            c.fillRect(0, 0, w, h);
+            draw();
+        }, 1000 / 60);
+
+    }
+
+    window.addEventListener('resize', function() {
+        w = canvas.width = window.innerWidth,
+            h = canvas.height = window.innerHeight;
+        c.fillStyle = "rgba(30,30,30,1)";
+        c.fillRect(0, 0, w, h);
+    });
+
+    function LuukLamers() {
+
+        var q = 0,
+            array = [0, 0, 0, 0, 0];
+
+        for (var key in opts) {
+
+            opts[key] = array[q];
+            ++q;
+        }
+        init();
+    }
+
+    init();
+
+    loop();
+</script>
+</body>
+</html>

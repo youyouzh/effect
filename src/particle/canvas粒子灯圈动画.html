@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas粒子灯圈动画</title>
+    <style>body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        overflow: hidden;
+        background: black;
+    }
+    canvas {
+        margin: auto;
+        touch-action: none;
+        filter: drop-shadow(0px 0px 3px rgba(0, 228, 233, 0.7));
+    }
+    </style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
+
+<script>
+    console.clear();
+    const particles = [];
+    const amount = innerWidth < 600 || innerHeight < 600 ? 1000 : 2000;
+    const durationShrink = 8;
+    const durationGrow = 8;
+    const total = durationShrink + durationGrow;
+    const theme = ['#393e46', '#00adb5', '#393e46', '#00adb5', '#e6eeef'];
+
+    // we'll tween the values in this proxy object. "progress" is for the overall progress of the movement around the circle, and "val" is for the individual grow/shrink stuff.
+    // This technique was kindly provided by Jack from Greensock
+    const proxy = {
+        progress: 1,
+        val: 0
+    };
+    // for the movement around the circle
+    const progress = gsap.to(proxy, {
+        progress: 0,
+        ease: "none",
+        duration: total,
+        repeat: -1
+    });
+    // for the interpolation of each dot's movement (resuse)
+    const interpolator = gsap.timeline({
+        paused: true,
+        reverse: true
+    }).to(proxy, {
+        val: 1,
+        duration: durationShrink,
+        ease: 'elastic.in(1.5, 0.15)'
+    }).to(proxy, {
+        val: 0,
+        duration: durationGrow,
+        ease: 'back.in(3)'
+    });
+
+    class P {
+        constructor (i) {
+            this.i = i;
+            this.cos = cos(i * TWO_PI);
+            this.sin = sin(i * TWO_PI);
+            this.r = floor(random(2, 8));
+            this.offset = pow(random(1, 2), 2.5) * random(-0.015, 0.015);
+            this.color = random(theme);
+        }
+        draw () {
+            interpolator.progress((proxy.progress + this.i) % 1);
+            let r = width * (0.35 + (proxy.val * this.offset));
+            let x = this.cos * r + width / 2;
+            let y = this.sin * r + width / 2;
+            fill(this.color);
+            circle(x, y, this.r);
+        }
+    }
+
+    function setup () {
+        const size = min(windowWidth, windowHeight);
+        createCanvas(size, size);
+        noStroke();
+        if (navigator.userAgent.indexOf('Firefox') < 0) {
+            blendMode(SCREEN);
+        }
+        for(let i = 0; i < amount; i++) {
+            particles.push(new P(i / amount));
+        }
+    }
+    function windowResized () {
+        const size = min(windowWidth, windowHeight);
+        resizeCanvas(size, size);
+    }
+    function touchMoved () {
+        if (touches.length === 0) return;
+        onMove(touches[0].x, touches[0].y);
+    }
+    function mouseMoved () {
+        onMove(mouseX, mouseY);
+    }
+    function onMove (x, y) {
+        let mouseAngle = atan2(y - height / 2, x - width / 2);
+        mouseAngle = mouseAngle < 0 ? mouseAngle + TWO_PI : mouseAngle;
+        mouseAngle = abs(mouseAngle / TWO_PI) * total;
+        progress.time(mouseAngle);
+    }
+
+    function draw () {
+        clear();
+        particles.forEach(p => {
+            p.draw();
+        });
+    }
+</script>
+</body>
+</html>
