@@ -31,12 +31,13 @@
             transition: .5s;
         }
 
-        span {
+        .content {
             font-size: 6em;
             font-family: "Quicksand", sans-serif;
             font-weight: 500;
             color: #ddd;
             transition: .25s;
+            display: block;
         }
 
         .neon-text-pink {
@@ -144,10 +145,36 @@
 </head>
 <body>
 <div class="buttons">
-    <button onClick="colorChange(colors[0][0],colors[0][1])">Green</button>
-    <button onClick="colorChange(colors[2][0], colors[2][1])">Pink</button>
-    <button onClick="colorChange(colors[1][0], colors[1][1])">Blue</button>
+    <button onClick="colorChange('neon-text-green')">Green</button>
+    <button onClick="colorChange('neon-text-pink')">Pink</button>
+    <button onClick="colorChange('neon-text-blue')">Blue</button>
 </div>
-<span class="neon-text-pink">愿你能，不负此生!</span>
+<div class="content">
+    <span class="neon-text-blue" id="time"></span>
+</div>
+
+<script>
+    function colorChange(color) {
+        document.getElementById('time').setAttribute('class', color);
+    }
+
+    function showTime() {
+        const nowTime = new Date(),  //获取当前时间
+              endTime = new Date("2022-04-10");  //定义结束时间
+        const leftTime = endTime.getTime() - nowTime.getTime(),  //距离结束时间的毫秒数
+            leftDay = Math.floor(leftTime / (1000 * 60 * 60 * 24)),  //计算天数
+            leftHour = Math.floor(leftTime / (1000 * 60 * 60) % 24),  //计算小时数
+            leftMinute = Math.floor(leftTime / (1000 * 60) % 60),  //计算分钟数
+            leftSeconds = Math.floor(leftTime / 1000 % 60);  //计算秒数
+        return "愿你能，不负此生!还剩下：" + leftDay + "天" + leftHour + ":" + leftMinute + ":" + leftSeconds;  //返回倒计时的字符串
+    }
+
+    setInterval(() => {
+        document.getElementById('time').innerHTML = showTime();
+    }, 1000);
+
+    showTime();
+
+</script>
 </body>
 </html>
