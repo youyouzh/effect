@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>色彩分辨能力测试</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="色觉测试,色弱测试,小游戏,色彩分辨">
+    <meta name="description" content="色彩分辨能力测试。">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+    <style>
+        #box {
+            width: 800px;
+            height: 800px;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            background-color: #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        #box span {
+            display: block;
+            float: left;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 5px solid #ddd;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="box"></div>
+
+<script>
+    const _config = {
+        allTime: 60,
+        addTime: 0,
+        lvMap: [2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9],
+        currentLevel: 0,
+    }
+    const boxElement = document.getElementById('box');
+
+    function readerSpan(level) {
+        const lvMap = _config.lvMap[Math.min(level, _config.lvMap.length - 1)];
+        const spanCount = lvMap * lvMap;
+
+        // 清空原来的颜色块，然后构造颜色块
+        // boxElement.childNodes.forEach(element => boxElement.removeChild(element));
+        boxElement.innerHTML = "";  // 移除子元素
+        const spanElement = document.createElement('span');
+        spanElement.style.width = spanElement.style.height = (1.0 / lvMap * 100) + '%';
+        spanElement.style.borderWidth = '3px';
+        for (let index = 0; index < spanCount; index++) {
+            boxElement.appendChild(spanElement.cloneNode(true));
+        }
+    }
+
+    function readerColor(level) {
+        let lastLevelStep = _config.lvMap[_config.lvMap.length - 1];
+        let levelStep = _config.lvMap[level] || lastLevelStep;
+
+        // level越大，随机的范围越大，基本颜色和干扰颜色之间的距离约近
+        let gap = 15 * Math.max(lastLevelStep - levelStep, 1);
+        gap = level > 20 ? 10 : gap;
+        gap = level > 30 ? 8 : gap;
+        gap = level > 40 ? 5 : gap;
+        const base = 255 - gap;
+
+        const rgb = [Math.round(Math.random() * base), Math.round(Math.random() * base), Math.round(Math.random() * base)];
+        const colors = {
+            rgb: rgb,
+            rgbStr: "rgb(" + rgb.join(",") + ")"
+        };
+        colors['noiseRgb'] = rgb.map(v => v + gap);
+        colors['noiseRgbStr'] = "rgb(" + colors['noiseRgb'].join(",") + ")";
+
+        const spanElements = boxElement.querySelectorAll('span');
+
+        // 正确事件
+        const correctElement = spanElements[Math.floor(Math.random() * spanElements.length)];
+        correctElement.style.backgroundColor = colors.noiseRgbStr;
+        correctElement.setAttribute("data-correct", true);
+        correctElement.addEventListener('click', next);
+
+        // 点击错误事件
+        spanElements.forEach(element => {
+            if (!element.getAttribute('data-correct')) {
+                element.style.backgroundColor = colors.rgbStr;
+                element.addEventListener('click', () => end());
+            }
+        });
+    }
+
+    function readerGame() {
+        readerSpan(_config.currentLevel);
+        readerColor(_config.currentLevel);
+    }
+
+    // correct, next level
+    function next() {
+        _config.currentLevel++;
+        readerGame();
+    }
+
+    function end() {
+        console.log('game over');
+        _config.currentLevel = 0;
+        readerGame();
+    }
+
+    // begin game
+    readerGame();
+
+</script>
+</body>
+</html>
