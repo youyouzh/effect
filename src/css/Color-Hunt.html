@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color-Hunt</title>
+    <style>
+        .item {
+            position: relative;
+            animation-name: item;
+            animation-duration: .4s;
+            animation-fill-mode: both;
+        }
+        .palette {
+            max-width: 100%;
+            padding-bottom: 100%;
+            border-radius: 10px;
+            position: relative;
+            display: block;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+        .place {
+            position: absolute;
+            width: 100%;
+            transform-origin: top;
+            background: grey;
+            text-align: left;
+            border-radius: 20px 20px 0 0;
+        }
+        .c3 {
+            padding-bottom: 100%;
+            animation-duration: 0s;
+            border-radius: 20px 20px 0 0;
+        }
+        .c2 {
+            padding-bottom: 85%;
+            animation-duration: .2s;
+        }
+        .c1 {
+            padding-bottom: 67%;
+            animation-duration: .6s;
+        }
+        .c0 {
+            padding-bottom: 41%;
+            animation-duration: 1s;
+            border-radius: 0;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .likesGrid {
+            margin: 10px auto;
+        }
+        .feed {
+            padding: 5px 20px 30px;
+            display: grid;
+            margin-top: -4px;
+            grid-template-columns: 22% 22% 22% 22%;
+            grid-column-gap: 4%;
+            grid-row-gap: 30px;
+        }
+
+    </style>
+    <style>
+        .likesPage {
+            padding-right:10px;
+        }
+        .likesPage .meta h1 {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:10px;
+        }
+        .likesPage .meta h1 span {
+            font-size:13px;
+            opacity:0.5;
+        }
+        .likesGrid {
+            margin:10px auto;
+        }
+        .likesGrid .date {
+            display:none;
+        }
+        .likesGrid .item .like span {
+            display:none;
+        }
+        .noLikes {
+            display:none;
+            margin-top:60px;
+        }
+        .noLikes .icon.big {
+            width:76px;
+            height:76px;
+            background-size:800%;
+            margin:0 auto;
+            display:block;
+            opacity:0.5;
+            animation-name:likeIcon;
+            animation-duration:2s;
+            background-position:-335px 50%;
+        }
+        @keyframes likeIcon {
+            0% {
+                transform:scale(1);
+            }
+            50% {
+                transform:scale(1.1);
+            }
+            100% {
+                transform:scale(1);
+            }
+        }.noLikes .button {
+             margin-top:20px;
+         }
+        @media screen and (max-width:600px) {
+            .likesPage {
+                padding-right:0
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="contentPage likesPage">
+        <div class="meta">
+            <h1>My collection
+                <span>46 palettes</span></h1>
+            <div class="line"></div>
+        </div>
+        <div class="center noLikes">
+            <div class="icon big" icon="like"></div>
+            <h1>No palettes in collection</h1>
+            <p>You haven't liked anything yet!</p>
+            <p>
+                <a href="/popular" class="button" onclick="update()">Find beautiful palettes</a></p>
+        </div>
+        <div class="likesGrid feed">
+            <div class="item" data-index="0" data-code="f6f6f6ffe2e2ffc7c7aaaaaa" style="animation-delay: 0ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(170, 170, 170);">
+                        <a href="/palette/f6f6f6ffe2e2ffc7c7aaaaaa"></a>
+                        <span onclick="copy(this)">#AAAAAA</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 199, 199);">
+                        <a href="/palette/f6f6f6ffe2e2ffc7c7aaaaaa"></a>
+                        <span onclick="copy(this)">#FFC7C7</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 226, 226);">
+                        <a href="/palette/f6f6f6ffe2e2ffc7c7aaaaaa"></a>
+                        <span onclick="copy(this)">#FFE2E2</span></div>
+                    <div class="place c0" style="background-color: rgb(246, 246, 246);">
+                        <a href="/palette/f6f6f6ffe2e2ffc7c7aaaaaa"></a>
+                        <span onclick="copy(this)">#F6F6F6</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f6f6f6ffe2e2ffc7c7aaaaaa&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="1" data-code="ffb6b9fae3d9bbded661c0bf" style="animation-delay: 30ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(97, 192, 191);">
+                        <a href="/palette/ffb6b9fae3d9bbded661c0bf"></a>
+                        <span onclick="copy(this)">#61C0BF</span></div>
+                    <div class="place c2" style="background-color: rgb(187, 222, 214);">
+                        <a href="/palette/ffb6b9fae3d9bbded661c0bf"></a>
+                        <span onclick="copy(this)">#BBDED6</span></div>
+                    <div class="place c1" style="background-color: rgb(250, 227, 217);">
+                        <a href="/palette/ffb6b9fae3d9bbded661c0bf"></a>
+                        <span onclick="copy(this)">#FAE3D9</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 182, 185);">
+                        <a href="/palette/ffb6b9fae3d9bbded661c0bf"></a>
+                        <span onclick="copy(this)">#FFB6B9</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffb6b9fae3d9bbded661c0bf&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="2" data-code="a8e6cffdffabffd3b6ffaaa5" style="animation-delay: 60ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(255, 170, 165);">
+                        <a href="/palette/a8e6cffdffabffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#FFAAA5</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 211, 182);">
+                        <a href="/palette/a8e6cffdffabffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#FFD3B6</span></div>
+                    <div class="place c1" style="background-color: rgb(253, 255, 171);">
+                        <a href="/palette/a8e6cffdffabffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#FDFFAB</span></div>
+                    <div class="place c0" style="background-color: rgb(168, 230, 207);">
+                        <a href="/palette/a8e6cffdffabffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#A8E6CF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;a8e6cffdffabffd3b6ffaaa5&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="3" data-code="f3d1f4f5fcc1bae5e598d6ea" style="animation-delay: 90ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(152, 214, 234);">
+                        <a href="/palette/f3d1f4f5fcc1bae5e598d6ea"></a>
+                        <span onclick="copy(this)">#98D6EA</span></div>
+                    <div class="place c2" style="background-color: rgb(186, 229, 229);">
+                        <a href="/palette/f3d1f4f5fcc1bae5e598d6ea"></a>
+                        <span onclick="copy(this)">#BAE5E5</span></div>
+                    <div class="place c1" style="background-color: rgb(245, 252, 193);">
+                        <a href="/palette/f3d1f4f5fcc1bae5e598d6ea"></a>
+                        <span onclick="copy(this)">#F5FCC1</span></div>
+                    <div class="place c0" style="background-color: rgb(243, 209, 244);">
+                        <a href="/palette/f3d1f4f5fcc1bae5e598d6ea"></a>
+                        <span onclick="copy(this)">#F3D1F4</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f3d1f4f5fcc1bae5e598d6ea&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="4" data-code="bad7dfffe2e2f6f6f699ddcc" style="animation-delay: 120ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(153, 221, 204);">
+                        <a href="/palette/bad7dfffe2e2f6f6f699ddcc"></a>
+                        <span onclick="copy(this)">#99DDCC</span></div>
+                    <div class="place c2" style="background-color: rgb(246, 246, 246);">
+                        <a href="/palette/bad7dfffe2e2f6f6f699ddcc"></a>
+                        <span onclick="copy(this)">#F6F6F6</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 226, 226);">
+                        <a href="/palette/bad7dfffe2e2f6f6f699ddcc"></a>
+                        <span onclick="copy(this)">#FFE2E2</span></div>
+                    <div class="place c0" style="background-color: rgb(186, 215, 223);">
+                        <a href="/palette/bad7dfffe2e2f6f6f699ddcc"></a>
+                        <span onclick="copy(this)">#BAD7DF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;bad7dfffe2e2f6f6f699ddcc&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="5" data-code="ffd1bdffb0cdffffffc2f0fc" style="animation-delay: 150ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(194, 240, 252);">
+                        <a href="/palette/ffd1bdffb0cdffffffc2f0fc"></a>
+                        <span onclick="copy(this)">#C2F0FC</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 255, 255);">
+                        <a href="/palette/ffd1bdffb0cdffffffc2f0fc"></a>
+                        <span onclick="copy(this)">#FFFFFF</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 176, 205);">
+                        <a href="/palette/ffd1bdffb0cdffffffc2f0fc"></a>
+                        <span onclick="copy(this)">#FFB0CD</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 209, 189);">
+                        <a href="/palette/ffd1bdffb0cdffffffc2f0fc"></a>
+                        <span onclick="copy(this)">#FFD1BD</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffd1bdffb0cdffffffc2f0fc&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="6" data-code="f7fbfcd6e6f2b9d7ea769fcd" style="animation-delay: 180ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(118, 159, 205);">
+                        <a href="/palette/f7fbfcd6e6f2b9d7ea769fcd"></a>
+                        <span onclick="copy(this)">#769FCD</span></div>
+                    <div class="place c2" style="background-color: rgb(185, 215, 234);">
+                        <a href="/palette/f7fbfcd6e6f2b9d7ea769fcd"></a>
+                        <span onclick="copy(this)">#B9D7EA</span></div>
+                    <div class="place c1" style="background-color: rgb(214, 230, 242);">
+                        <a href="/palette/f7fbfcd6e6f2b9d7ea769fcd"></a>
+                        <span onclick="copy(this)">#D6E6F2</span></div>
+                    <div class="place c0" style="background-color: rgb(247, 251, 252);">
+                        <a href="/palette/f7fbfcd6e6f2b9d7ea769fcd"></a>
+                        <span onclick="copy(this)">#F7FBFC</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f7fbfcd6e6f2b9d7ea769fcd&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="7" data-code="e3fdfdcbf1f5a6e3e971c9ce" style="animation-delay: 210ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(113, 201, 206);">
+                        <a href="/palette/e3fdfdcbf1f5a6e3e971c9ce"></a>
+                        <span onclick="copy(this)">#71C9CE</span></div>
+                    <div class="place c2" style="background-color: rgb(166, 227, 233);">
+                        <a href="/palette/e3fdfdcbf1f5a6e3e971c9ce"></a>
+                        <span onclick="copy(this)">#A6E3E9</span></div>
+                    <div class="place c1" style="background-color: rgb(203, 241, 245);">
+                        <a href="/palette/e3fdfdcbf1f5a6e3e971c9ce"></a>
+                        <span onclick="copy(this)">#CBF1F5</span></div>
+                    <div class="place c0" style="background-color: rgb(227, 253, 253);">
+                        <a href="/palette/e3fdfdcbf1f5a6e3e971c9ce"></a>
+                        <span onclick="copy(this)">#E3FDFD</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;e3fdfdcbf1f5a6e3e971c9ce&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="8" data-code="ebfffac6fce56ef3d60dceda" style="animation-delay: 240ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(13, 206, 218);">
+                        <a href="/palette/ebfffac6fce56ef3d60dceda"></a>
+                        <span onclick="copy(this)">#0DCEDA</span></div>
+                    <div class="place c2" style="background-color: rgb(110, 243, 214);">
+                        <a href="/palette/ebfffac6fce56ef3d60dceda"></a>
+                        <span onclick="copy(this)">#6EF3D6</span></div>
+                    <div class="place c1" style="background-color: rgb(198, 252, 229);">
+                        <a href="/palette/ebfffac6fce56ef3d60dceda"></a>
+                        <span onclick="copy(this)">#C6FCE5</span></div>
+                    <div class="place c0" style="background-color: rgb(235, 255, 250);">
+                        <a href="/palette/ebfffac6fce56ef3d60dceda"></a>
+                        <span onclick="copy(this)">#EBFFFA</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ebfffac6fce56ef3d60dceda&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="9" data-code="cff1effffffffbcffcbe79df" style="animation-delay: 270ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(190, 121, 223);">
+                        <a href="/palette/cff1effffffffbcffcbe79df"></a>
+                        <span onclick="copy(this)">#BE79DF</span></div>
+                    <div class="place c2" style="background-color: rgb(251, 207, 252);">
+                        <a href="/palette/cff1effffffffbcffcbe79df"></a>
+                        <span onclick="copy(this)">#FBCFFC</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 255, 255);">
+                        <a href="/palette/cff1effffffffbcffcbe79df"></a>
+                        <span onclick="copy(this)">#FFFFFF</span></div>
+                    <div class="place c0" style="background-color: rgb(207, 241, 239);">
+                        <a href="/palette/cff1effffffffbcffcbe79df"></a>
+                        <span onclick="copy(this)">#CFF1EF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;cff1effffffffbcffcbe79df&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="10" data-code="ffaaa5fcf8f3ffd3b6698474" style="animation-delay: 300ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(105, 132, 116);">
+                        <a href="/palette/ffaaa5fcf8f3ffd3b6698474"></a>
+                        <span onclick="copy(this)">#698474</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 211, 182);">
+                        <a href="/palette/ffaaa5fcf8f3ffd3b6698474"></a>
+                        <span onclick="copy(this)">#FFD3B6</span></div>
+                    <div class="place c1" style="background-color: rgb(252, 248, 243);">
+                        <a href="/palette/ffaaa5fcf8f3ffd3b6698474"></a>
+                        <span onclick="copy(this)">#FCF8F3</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 170, 165);">
+                        <a href="/palette/ffaaa5fcf8f3ffd3b6698474"></a>
+                        <span onclick="copy(this)">#FFAAA5</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffaaa5fcf8f3ffd3b6698474&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="11" data-code="defcf9cadefcc3bef0cca8e9" style="animation-delay: 330ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(204, 168, 233);">
+                        <a href="/palette/defcf9cadefcc3bef0cca8e9"></a>
+                        <span onclick="copy(this)">#CCA8E9</span></div>
+                    <div class="place c2" style="background-color: rgb(195, 190, 240);">
+                        <a href="/palette/defcf9cadefcc3bef0cca8e9"></a>
+                        <span onclick="copy(this)">#C3BEF0</span></div>
+                    <div class="place c1" style="background-color: rgb(202, 222, 252);">
+                        <a href="/palette/defcf9cadefcc3bef0cca8e9"></a>
+                        <span onclick="copy(this)">#CADEFC</span></div>
+                    <div class="place c0" style="background-color: rgb(222, 252, 249);">
+                        <a href="/palette/defcf9cadefcc3bef0cca8e9"></a>
+                        <span onclick="copy(this)">#DEFCF9</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;defcf9cadefcc3bef0cca8e9&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="12" data-code="00e0ff74f9ffa6fff2e8ffe8" style="animation-delay: 360ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(232, 255, 232);">
+                        <a href="/palette/00e0ff74f9ffa6fff2e8ffe8"></a>
+                        <span onclick="copy(this)">#E8FFE8</span></div>
+                    <div class="place c2" style="background-color: rgb(166, 255, 242);">
+                        <a href="/palette/00e0ff74f9ffa6fff2e8ffe8"></a>
+                        <span onclick="copy(this)">#A6FFF2</span></div>
+                    <div class="place c1" style="background-color: rgb(116, 249, 255);">
+                        <a href="/palette/00e0ff74f9ffa6fff2e8ffe8"></a>
+                        <span onclick="copy(this)">#74F9FF</span></div>
+                    <div class="place c0" style="background-color: rgb(0, 224, 255);">
+                        <a href="/palette/00e0ff74f9ffa6fff2e8ffe8"></a>
+                        <span onclick="copy(this)">#00E0FF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;00e0ff74f9ffa6fff2e8ffe8&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="13" data-code="ffe8dffffffff0f0f0888888" style="animation-delay: 390ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(136, 136, 136);">
+                        <a href="/palette/ffe8dffffffff0f0f0888888"></a>
+                        <span onclick="copy(this)">#888888</span></div>
+                    <div class="place c2" style="background-color: rgb(240, 240, 240);">
+                        <a href="/palette/ffe8dffffffff0f0f0888888"></a>
+                        <span onclick="copy(this)">#F0F0F0</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 255, 255);">
+                        <a href="/palette/ffe8dffffffff0f0f0888888"></a>
+                        <span onclick="copy(this)">#FFFFFF</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 232, 223);">
+                        <a href="/palette/ffe8dffffffff0f0f0888888"></a>
+                        <span onclick="copy(this)">#FFE8DF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffe8dffffffff0f0f0888888&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="14" data-code="99e1e5f3e8cbf2c6b4fbafaf" style="animation-delay: 420ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(251, 175, 175);">
+                        <a href="/palette/99e1e5f3e8cbf2c6b4fbafaf"></a>
+                        <span onclick="copy(this)">#FBAFAF</span></div>
+                    <div class="place c2" style="background-color: rgb(242, 198, 180);">
+                        <a href="/palette/99e1e5f3e8cbf2c6b4fbafaf"></a>
+                        <span onclick="copy(this)">#F2C6B4</span></div>
+                    <div class="place c1" style="background-color: rgb(243, 232, 203);">
+                        <a href="/palette/99e1e5f3e8cbf2c6b4fbafaf"></a>
+                        <span onclick="copy(this)">#F3E8CB</span></div>
+                    <div class="place c0" style="background-color: rgb(153, 225, 229);">
+                        <a href="/palette/99e1e5f3e8cbf2c6b4fbafaf"></a>
+                        <span onclick="copy(this)">#99E1E5</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;99e1e5f3e8cbf2c6b4fbafaf&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="15" data-code="dff4f3dde7f2b9bbdf878ecd" style="animation-delay: 450ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(135, 142, 205);">
+                        <a href="/palette/dff4f3dde7f2b9bbdf878ecd"></a>
+                        <span onclick="copy(this)">#878ECD</span></div>
+                    <div class="place c2" style="background-color: rgb(185, 187, 223);">
+                        <a href="/palette/dff4f3dde7f2b9bbdf878ecd"></a>
+                        <span onclick="copy(this)">#B9BBDF</span></div>
+                    <div class="place c1" style="background-color: rgb(221, 231, 242);">
+                        <a href="/palette/dff4f3dde7f2b9bbdf878ecd"></a>
+                        <span onclick="copy(this)">#DDE7F2</span></div>
+                    <div class="place c0" style="background-color: rgb(223, 244, 243);">
+                        <a href="/palette/dff4f3dde7f2b9bbdf878ecd"></a>
+                        <span onclick="copy(this)">#DFF4F3</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;dff4f3dde7f2b9bbdf878ecd&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="16" data-code="ffc8c8ff9999444f5a3e4149" style="animation-delay: 480ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(62, 65, 73);">
+                        <a href="/palette/ffc8c8ff9999444f5a3e4149"></a>
+                        <span onclick="copy(this)">#3E4149</span></div>
+                    <div class="place c2" style="background-color: rgb(68, 79, 90);">
+                        <a href="/palette/ffc8c8ff9999444f5a3e4149"></a>
+                        <span onclick="copy(this)">#444F5A</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 153, 153);">
+                        <a href="/palette/ffc8c8ff9999444f5a3e4149"></a>
+                        <span onclick="copy(this)">#FF9999</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 200, 200);">
+                        <a href="/palette/ffc8c8ff9999444f5a3e4149"></a>
+                        <span onclick="copy(this)">#FFC8C8</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffc8c8ff9999444f5a3e4149&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="17" data-code="d7fffda1e6e3eca0b6fafba4" style="animation-delay: 510ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(250, 251, 164);">
+                        <a href="/palette/d7fffda1e6e3eca0b6fafba4"></a>
+                        <span onclick="copy(this)">#FAFBA4</span></div>
+                    <div class="place c2" style="background-color: rgb(236, 160, 182);">
+                        <a href="/palette/d7fffda1e6e3eca0b6fafba4"></a>
+                        <span onclick="copy(this)">#ECA0B6</span></div>
+                    <div class="place c1" style="background-color: rgb(161, 230, 227);">
+                        <a href="/palette/d7fffda1e6e3eca0b6fafba4"></a>
+                        <span onclick="copy(this)">#A1E6E3</span></div>
+                    <div class="place c0" style="background-color: rgb(215, 255, 253);">
+                        <a href="/palette/d7fffda1e6e3eca0b6fafba4"></a>
+                        <span onclick="copy(this)">#D7FFFD</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;d7fffda1e6e3eca0b6fafba4&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="18" data-code="ff9292ffb4b4ffdcdcffe8e8" style="animation-delay: 540ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(255, 232, 232);">
+                        <a href="/palette/ff9292ffb4b4ffdcdcffe8e8"></a>
+                        <span onclick="copy(this)">#FFE8E8</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 220, 220);">
+                        <a href="/palette/ff9292ffb4b4ffdcdcffe8e8"></a>
+                        <span onclick="copy(this)">#FFDCDC</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 180, 180);">
+                        <a href="/palette/ff9292ffb4b4ffdcdcffe8e8"></a>
+                        <span onclick="copy(this)">#FFB4B4</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 146, 146);">
+                        <a href="/palette/ff9292ffb4b4ffdcdcffe8e8"></a>
+                        <span onclick="copy(this)">#FF9292</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ff9292ffb4b4ffdcdcffe8e8&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="19" data-code="a8e6cfdcedc1ffd3b6ffaaa5" style="animation-delay: 570ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(255, 170, 165);">
+                        <a href="/palette/a8e6cfdcedc1ffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#FFAAA5</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 211, 182);">
+                        <a href="/palette/a8e6cfdcedc1ffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#FFD3B6</span></div>
+                    <div class="place c1" style="background-color: rgb(220, 237, 193);">
+                        <a href="/palette/a8e6cfdcedc1ffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#DCEDC1</span></div>
+                    <div class="place c0" style="background-color: rgb(168, 230, 207);">
+                        <a href="/palette/a8e6cfdcedc1ffd3b6ffaaa5"></a>
+                        <span onclick="copy(this)">#A8E6CF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;a8e6cfdcedc1ffd3b6ffaaa5&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="20" data-code="e4f9f530e3ca11999e40514e" style="animation-delay: 600ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(64, 81, 78);">
+                        <a href="/palette/e4f9f530e3ca11999e40514e"></a>
+                        <span onclick="copy(this)">#40514E</span></div>
+                    <div class="place c2" style="background-color: rgb(17, 153, 158);">
+                        <a href="/palette/e4f9f530e3ca11999e40514e"></a>
+                        <span onclick="copy(this)">#11999E</span></div>
+                    <div class="place c1" style="background-color: rgb(48, 227, 202);">
+                        <a href="/palette/e4f9f530e3ca11999e40514e"></a>
+                        <span onclick="copy(this)">#30E3CA</span></div>
+                    <div class="place c0" style="background-color: rgb(228, 249, 245);">
+                        <a href="/palette/e4f9f530e3ca11999e40514e"></a>
+                        <span onclick="copy(this)">#E4F9F5</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;e4f9f530e3ca11999e40514e&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="21" data-code="4813807f78d2efb1ffffe2ff" style="animation-delay: 630ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(255, 226, 255);">
+                        <a href="/palette/4813807f78d2efb1ffffe2ff"></a>
+                        <span onclick="copy(this)">#FFE2FF</span></div>
+                    <div class="place c2" style="background-color: rgb(239, 177, 255);">
+                        <a href="/palette/4813807f78d2efb1ffffe2ff"></a>
+                        <span onclick="copy(this)">#EFB1FF</span></div>
+                    <div class="place c1" style="background-color: rgb(127, 120, 210);">
+                        <a href="/palette/4813807f78d2efb1ffffe2ff"></a>
+                        <span onclick="copy(this)">#7F78D2</span></div>
+                    <div class="place c0" style="background-color: rgb(72, 19, 128);">
+                        <a href="/palette/4813807f78d2efb1ffffe2ff"></a>
+                        <span onclick="copy(this)">#481380</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;4813807f78d2efb1ffffe2ff&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="22" data-code="ffb6b6fde2e2aacfcf679b9b" style="animation-delay: 660ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(103, 155, 155);">
+                        <a href="/palette/ffb6b6fde2e2aacfcf679b9b"></a>
+                        <span onclick="copy(this)">#679B9B</span></div>
+                    <div class="place c2" style="background-color: rgb(170, 207, 207);">
+                        <a href="/palette/ffb6b6fde2e2aacfcf679b9b"></a>
+                        <span onclick="copy(this)">#AACFCF</span></div>
+                    <div class="place c1" style="background-color: rgb(253, 226, 226);">
+                        <a href="/palette/ffb6b6fde2e2aacfcf679b9b"></a>
+                        <span onclick="copy(this)">#FDE2E2</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 182, 182);">
+                        <a href="/palette/ffb6b6fde2e2aacfcf679b9b"></a>
+                        <span onclick="copy(this)">#FFB6B6</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffb6b6fde2e2aacfcf679b9b&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="23" data-code="a1eafbfdfdfdffcef3cabbe9" style="animation-delay: 690ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(202, 187, 233);">
+                        <a href="/palette/a1eafbfdfdfdffcef3cabbe9"></a>
+                        <span onclick="copy(this)">#CABBE9</span></div>
+                    <div class="place c2" style="background-color: rgb(255, 206, 243);">
+                        <a href="/palette/a1eafbfdfdfdffcef3cabbe9"></a>
+                        <span onclick="copy(this)">#FFCEF3</span></div>
+                    <div class="place c1" style="background-color: rgb(253, 253, 253);">
+                        <a href="/palette/a1eafbfdfdfdffcef3cabbe9"></a>
+                        <span onclick="copy(this)">#FDFDFD</span></div>
+                    <div class="place c0" style="background-color: rgb(161, 234, 251);">
+                        <a href="/palette/a1eafbfdfdfdffcef3cabbe9"></a>
+                        <span onclick="copy(this)">#A1EAFB</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;a1eafbfdfdfdffcef3cabbe9&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="24" data-code="f6acc8af8baf58415326191b" style="animation-delay: 720ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(38, 25, 27);">
+                        <a href="/palette/f6acc8af8baf58415326191b"></a>
+                        <span onclick="copy(this)">#26191B</span></div>
+                    <div class="place c2" style="background-color: rgb(88, 65, 83);">
+                        <a href="/palette/f6acc8af8baf58415326191b"></a>
+                        <span onclick="copy(this)">#584153</span></div>
+                    <div class="place c1" style="background-color: rgb(175, 139, 175);">
+                        <a href="/palette/f6acc8af8baf58415326191b"></a>
+                        <span onclick="copy(this)">#AF8BAF</span></div>
+                    <div class="place c0" style="background-color: rgb(246, 172, 200);">
+                        <a href="/palette/f6acc8af8baf58415326191b"></a>
+                        <span onclick="copy(this)">#F6ACC8</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f6acc8af8baf58415326191b&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="25" data-code="f5eee6f3d7cae6a4b4c86b85" style="animation-delay: 750ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(200, 107, 133);">
+                        <a href="/palette/f5eee6f3d7cae6a4b4c86b85"></a>
+                        <span onclick="copy(this)">#C86B85</span></div>
+                    <div class="place c2" style="background-color: rgb(230, 164, 180);">
+                        <a href="/palette/f5eee6f3d7cae6a4b4c86b85"></a>
+                        <span onclick="copy(this)">#E6A4B4</span></div>
+                    <div class="place c1" style="background-color: rgb(243, 215, 202);">
+                        <a href="/palette/f5eee6f3d7cae6a4b4c86b85"></a>
+                        <span onclick="copy(this)">#F3D7CA</span></div>
+                    <div class="place c0" style="background-color: rgb(245, 238, 230);">
+                        <a href="/palette/f5eee6f3d7cae6a4b4c86b85"></a>
+                        <span onclick="copy(this)">#F5EEE6</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f5eee6f3d7cae6a4b4c86b85&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="26" data-code="ffc7c7ffe2e2f6f6f68785a2" style="animation-delay: 780ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(135, 133, 162);">
+                        <a href="/palette/ffc7c7ffe2e2f6f6f68785a2"></a>
+                        <span onclick="copy(this)">#8785A2</span></div>
+                    <div class="place c2" style="background-color: rgb(246, 246, 246);">
+                        <a href="/palette/ffc7c7ffe2e2f6f6f68785a2"></a>
+                        <span onclick="copy(this)">#F6F6F6</span></div>
+                    <div class="place c1" style="background-color: rgb(255, 226, 226);">
+                        <a href="/palette/ffc7c7ffe2e2f6f6f68785a2"></a>
+                        <span onclick="copy(this)">#FFE2E2</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 199, 199);">
+                        <a href="/palette/ffc7c7ffe2e2f6f6f68785a2"></a>
+                        <span onclick="copy(this)">#FFC7C7</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffc7c7ffe2e2f6f6f68785a2&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="27" data-code="f4eeffdcd6f7a6b1e1424874" style="animation-delay: 810ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(66, 72, 116);">
+                        <a href="/palette/f4eeffdcd6f7a6b1e1424874"></a>
+                        <span onclick="copy(this)">#424874</span></div>
+                    <div class="place c2" style="background-color: rgb(166, 177, 225);">
+                        <a href="/palette/f4eeffdcd6f7a6b1e1424874"></a>
+                        <span onclick="copy(this)">#A6B1E1</span></div>
+                    <div class="place c1" style="background-color: rgb(220, 214, 247);">
+                        <a href="/palette/f4eeffdcd6f7a6b1e1424874"></a>
+                        <span onclick="copy(this)">#DCD6F7</span></div>
+                    <div class="place c0" style="background-color: rgb(244, 238, 255);">
+                        <a href="/palette/f4eeffdcd6f7a6b1e1424874"></a>
+                        <span onclick="copy(this)">#F4EEFF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f4eeffdcd6f7a6b1e1424874&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="28" data-code="ffcfdffefdcae0f9b5a5dee5" style="animation-delay: 840ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(165, 222, 229);">
+                        <a href="/palette/ffcfdffefdcae0f9b5a5dee5"></a>
+                        <span onclick="copy(this)">#A5DEE5</span></div>
+                    <div class="place c2" style="background-color: rgb(224, 249, 181);">
+                        <a href="/palette/ffcfdffefdcae0f9b5a5dee5"></a>
+                        <span onclick="copy(this)">#E0F9B5</span></div>
+                    <div class="place c1" style="background-color: rgb(254, 253, 202);">
+                        <a href="/palette/ffcfdffefdcae0f9b5a5dee5"></a>
+                        <span onclick="copy(this)">#FEFDCA</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 207, 223);">
+                        <a href="/palette/ffcfdffefdcae0f9b5a5dee5"></a>
+                        <span onclick="copy(this)">#FFCFDF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffcfdffefdcae0f9b5a5dee5&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="29" data-code="f9ececf0d9dac8d9ebecf2f9" style="animation-delay: 870ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(236, 242, 249);">
+                        <a href="/palette/f9ececf0d9dac8d9ebecf2f9"></a>
+                        <span onclick="copy(this)">#ECF2F9</span></div>
+                    <div class="place c2" style="background-color: rgb(200, 217, 235);">
+                        <a href="/palette/f9ececf0d9dac8d9ebecf2f9"></a>
+                        <span onclick="copy(this)">#C8D9EB</span></div>
+                    <div class="place c1" style="background-color: rgb(240, 217, 218);">
+                        <a href="/palette/f9ececf0d9dac8d9ebecf2f9"></a>
+                        <span onclick="copy(this)">#F0D9DA</span></div>
+                    <div class="place c0" style="background-color: rgb(249, 236, 236);">
+                        <a href="/palette/f9ececf0d9dac8d9ebecf2f9"></a>
+                        <span onclick="copy(this)">#F9ECEC</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f9ececf0d9dac8d9ebecf2f9&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="30" data-code="cefff1ace7efa6aceca56cc1" style="animation-delay: 900ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(165, 108, 193);">
+                        <a href="/palette/cefff1ace7efa6aceca56cc1"></a>
+                        <span onclick="copy(this)">#A56CC1</span></div>
+                    <div class="place c2" style="background-color: rgb(166, 172, 236);">
+                        <a href="/palette/cefff1ace7efa6aceca56cc1"></a>
+                        <span onclick="copy(this)">#A6ACEC</span></div>
+                    <div class="place c1" style="background-color: rgb(172, 231, 239);">
+                        <a href="/palette/cefff1ace7efa6aceca56cc1"></a>
+                        <span onclick="copy(this)">#ACE7EF</span></div>
+                    <div class="place c0" style="background-color: rgb(206, 255, 241);">
+                        <a href="/palette/cefff1ace7efa6aceca56cc1"></a>
+                        <span onclick="copy(this)">#CEFFF1</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;cefff1ace7efa6aceca56cc1&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="31" data-code="a8d8eaaa96dafcbad3ffffd2" style="animation-delay: 930ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(255, 255, 210);">
+                        <a href="/palette/a8d8eaaa96dafcbad3ffffd2"></a>
+                        <span onclick="copy(this)">#FFFFD2</span></div>
+                    <div class="place c2" style="background-color: rgb(252, 186, 211);">
+                        <a href="/palette/a8d8eaaa96dafcbad3ffffd2"></a>
+                        <span onclick="copy(this)">#FCBAD3</span></div>
+                    <div class="place c1" style="background-color: rgb(170, 150, 218);">
+                        <a href="/palette/a8d8eaaa96dafcbad3ffffd2"></a>
+                        <span onclick="copy(this)">#AA96DA</span></div>
+                    <div class="place c0" style="background-color: rgb(168, 216, 234);">
+                        <a href="/palette/a8d8eaaa96dafcbad3ffffd2"></a>
+                        <span onclick="copy(this)">#A8D8EA</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;a8d8eaaa96dafcbad3ffffd2&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="32" data-code="ffd5cdefbbcfc3aed68675a9" style="animation-delay: 960ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(134, 117, 169);">
+                        <a href="/palette/ffd5cdefbbcfc3aed68675a9"></a>
+                        <span onclick="copy(this)">#8675A9</span></div>
+                    <div class="place c2" style="background-color: rgb(195, 174, 214);">
+                        <a href="/palette/ffd5cdefbbcfc3aed68675a9"></a>
+                        <span onclick="copy(this)">#C3AED6</span></div>
+                    <div class="place c1" style="background-color: rgb(239, 187, 207);">
+                        <a href="/palette/ffd5cdefbbcfc3aed68675a9"></a>
+                        <span onclick="copy(this)">#EFBBCF</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 213, 205);">
+                        <a href="/palette/ffd5cdefbbcfc3aed68675a9"></a>
+                        <span onclick="copy(this)">#FFD5CD</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffd5cdefbbcfc3aed68675a9&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="33" data-code="a9eee6fefaecf9a1bc625772" style="animation-delay: 990ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(98, 87, 114);">
+                        <a href="/palette/a9eee6fefaecf9a1bc625772"></a>
+                        <span onclick="copy(this)">#625772</span></div>
+                    <div class="place c2" style="background-color: rgb(249, 161, 188);">
+                        <a href="/palette/a9eee6fefaecf9a1bc625772"></a>
+                        <span onclick="copy(this)">#F9A1BC</span></div>
+                    <div class="place c1" style="background-color: rgb(254, 250, 236);">
+                        <a href="/palette/a9eee6fefaecf9a1bc625772"></a>
+                        <span onclick="copy(this)">#FEFAEC</span></div>
+                    <div class="place c0" style="background-color: rgb(169, 238, 230);">
+                        <a href="/palette/a9eee6fefaecf9a1bc625772"></a>
+                        <span onclick="copy(this)">#A9EEE6</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;a9eee6fefaecf9a1bc625772&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="34" data-code="63b7afabf0e9d4f3efee8572" style="animation-delay: 1020ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(238, 133, 114);">
+                        <a href="/palette/63b7afabf0e9d4f3efee8572"></a>
+                        <span onclick="copy(this)">#EE8572</span></div>
+                    <div class="place c2" style="background-color: rgb(212, 243, 239);">
+                        <a href="/palette/63b7afabf0e9d4f3efee8572"></a>
+                        <span onclick="copy(this)">#D4F3EF</span></div>
+                    <div class="place c1" style="background-color: rgb(171, 240, 233);">
+                        <a href="/palette/63b7afabf0e9d4f3efee8572"></a>
+                        <span onclick="copy(this)">#ABF0E9</span></div>
+                    <div class="place c0" style="background-color: rgb(99, 183, 175);">
+                        <a href="/palette/63b7afabf0e9d4f3efee8572"></a>
+                        <span onclick="copy(this)">#63B7AF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;63b7afabf0e9d4f3efee8572&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="35" data-code="cdf0eaf9f9f9f7dbf0beaee2" style="animation-delay: 1050ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(190, 174, 226);">
+                        <a href="/palette/cdf0eaf9f9f9f7dbf0beaee2"></a>
+                        <span onclick="copy(this)">#BEAEE2</span></div>
+                    <div class="place c2" style="background-color: rgb(247, 219, 240);">
+                        <a href="/palette/cdf0eaf9f9f9f7dbf0beaee2"></a>
+                        <span onclick="copy(this)">#F7DBF0</span></div>
+                    <div class="place c1" style="background-color: rgb(249, 249, 249);">
+                        <a href="/palette/cdf0eaf9f9f9f7dbf0beaee2"></a>
+                        <span onclick="copy(this)">#F9F9F9</span></div>
+                    <div class="place c0" style="background-color: rgb(205, 240, 234);">
+                        <a href="/palette/cdf0eaf9f9f9f7dbf0beaee2"></a>
+                        <span onclick="copy(this)">#CDF0EA</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;cdf0eaf9f9f9f7dbf0beaee2&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="36" data-code="fcd8d4fdf6f0f8e2cff5c6aa" style="animation-delay: 1080ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(245, 198, 170);">
+                        <a href="/palette/fcd8d4fdf6f0f8e2cff5c6aa"></a>
+                        <span onclick="copy(this)">#F5C6AA</span></div>
+                    <div class="place c2" style="background-color: rgb(248, 226, 207);">
+                        <a href="/palette/fcd8d4fdf6f0f8e2cff5c6aa"></a>
+                        <span onclick="copy(this)">#F8E2CF</span></div>
+                    <div class="place c1" style="background-color: rgb(253, 246, 240);">
+                        <a href="/palette/fcd8d4fdf6f0f8e2cff5c6aa"></a>
+                        <span onclick="copy(this)">#FDF6F0</span></div>
+                    <div class="place c0" style="background-color: rgb(252, 216, 212);">
+                        <a href="/palette/fcd8d4fdf6f0f8e2cff5c6aa"></a>
+                        <span onclick="copy(this)">#FCD8D4</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;fcd8d4fdf6f0f8e2cff5c6aa&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="37" data-code="be9fe1c9b6e4e1ccecf1f1f6" style="animation-delay: 1110ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(241, 241, 246);">
+                        <a href="/palette/be9fe1c9b6e4e1ccecf1f1f6"></a>
+                        <span onclick="copy(this)">#F1F1F6</span></div>
+                    <div class="place c2" style="background-color: rgb(225, 204, 236);">
+                        <a href="/palette/be9fe1c9b6e4e1ccecf1f1f6"></a>
+                        <span onclick="copy(this)">#E1CCEC</span></div>
+                    <div class="place c1" style="background-color: rgb(201, 182, 228);">
+                        <a href="/palette/be9fe1c9b6e4e1ccecf1f1f6"></a>
+                        <span onclick="copy(this)">#C9B6E4</span></div>
+                    <div class="place c0" style="background-color: rgb(190, 159, 225);">
+                        <a href="/palette/be9fe1c9b6e4e1ccecf1f1f6"></a>
+                        <span onclick="copy(this)">#BE9FE1</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;be9fe1c9b6e4e1ccecf1f1f6&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="38" data-code="fef0ffd6c8ffc79ecf7e6bc4" style="animation-delay: 1140ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(126, 107, 196);">
+                        <a href="/palette/fef0ffd6c8ffc79ecf7e6bc4"></a>
+                        <span onclick="copy(this)">#7E6BC4</span></div>
+                    <div class="place c2" style="background-color: rgb(199, 158, 207);">
+                        <a href="/palette/fef0ffd6c8ffc79ecf7e6bc4"></a>
+                        <span onclick="copy(this)">#C79ECF</span></div>
+                    <div class="place c1" style="background-color: rgb(214, 200, 255);">
+                        <a href="/palette/fef0ffd6c8ffc79ecf7e6bc4"></a>
+                        <span onclick="copy(this)">#D6C8FF</span></div>
+                    <div class="place c0" style="background-color: rgb(254, 240, 255);">
+                        <a href="/palette/fef0ffd6c8ffc79ecf7e6bc4"></a>
+                        <span onclick="copy(this)">#FEF0FF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;fef0ffd6c8ffc79ecf7e6bc4&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="39" data-code="fcd1d1ece2e1d3e0dcaee1e1" style="animation-delay: 1170ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(174, 225, 225);">
+                        <a href="/palette/fcd1d1ece2e1d3e0dcaee1e1"></a>
+                        <span onclick="copy(this)">#AEE1E1</span></div>
+                    <div class="place c2" style="background-color: rgb(211, 224, 220);">
+                        <a href="/palette/fcd1d1ece2e1d3e0dcaee1e1"></a>
+                        <span onclick="copy(this)">#D3E0DC</span></div>
+                    <div class="place c1" style="background-color: rgb(236, 226, 225);">
+                        <a href="/palette/fcd1d1ece2e1d3e0dcaee1e1"></a>
+                        <span onclick="copy(this)">#ECE2E1</span></div>
+                    <div class="place c0" style="background-color: rgb(252, 209, 209);">
+                        <a href="/palette/fcd1d1ece2e1d3e0dcaee1e1"></a>
+                        <span onclick="copy(this)">#FCD1D1</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;fcd1d1ece2e1d3e0dcaee1e1&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="40" data-code="fcf5eefbe8e7f7dddeffc4d0" style="animation-delay: 1200ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(255, 196, 208);">
+                        <a href="/palette/fcf5eefbe8e7f7dddeffc4d0"></a>
+                        <span onclick="copy(this)">#FFC4D0</span></div>
+                    <div class="place c2" style="background-color: rgb(247, 221, 222);">
+                        <a href="/palette/fcf5eefbe8e7f7dddeffc4d0"></a>
+                        <span onclick="copy(this)">#F7DDDE</span></div>
+                    <div class="place c1" style="background-color: rgb(251, 232, 231);">
+                        <a href="/palette/fcf5eefbe8e7f7dddeffc4d0"></a>
+                        <span onclick="copy(this)">#FBE8E7</span></div>
+                    <div class="place c0" style="background-color: rgb(252, 245, 238);">
+                        <a href="/palette/fcf5eefbe8e7f7dddeffc4d0"></a>
+                        <span onclick="copy(this)">#FCF5EE</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;fcf5eefbe8e7f7dddeffc4d0&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="41" data-code="e1f2fbf1f9f9f3dfe3e9b2bc" style="animation-delay: 1230ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(233, 178, 188);">
+                        <a href="/palette/e1f2fbf1f9f9f3dfe3e9b2bc"></a>
+                        <span onclick="copy(this)">#E9B2BC</span></div>
+                    <div class="place c2" style="background-color: rgb(243, 223, 227);">
+                        <a href="/palette/e1f2fbf1f9f9f3dfe3e9b2bc"></a>
+                        <span onclick="copy(this)">#F3DFE3</span></div>
+                    <div class="place c1" style="background-color: rgb(241, 249, 249);">
+                        <a href="/palette/e1f2fbf1f9f9f3dfe3e9b2bc"></a>
+                        <span onclick="copy(this)">#F1F9F9</span></div>
+                    <div class="place c0" style="background-color: rgb(225, 242, 251);">
+                        <a href="/palette/e1f2fbf1f9f9f3dfe3e9b2bc"></a>
+                        <span onclick="copy(this)">#E1F2FB</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;e1f2fbf1f9f9f3dfe3e9b2bc&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="42" data-code="f6e5f5fbf4f9f6e7e6b9cced" style="animation-delay: 1260ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(185, 204, 237);">
+                        <a href="/palette/f6e5f5fbf4f9f6e7e6b9cced"></a>
+                        <span onclick="copy(this)">#B9CCED</span></div>
+                    <div class="place c2" style="background-color: rgb(246, 231, 230);">
+                        <a href="/palette/f6e5f5fbf4f9f6e7e6b9cced"></a>
+                        <span onclick="copy(this)">#F6E7E6</span></div>
+                    <div class="place c1" style="background-color: rgb(251, 244, 249);">
+                        <a href="/palette/f6e5f5fbf4f9f6e7e6b9cced"></a>
+                        <span onclick="copy(this)">#FBF4F9</span></div>
+                    <div class="place c0" style="background-color: rgb(246, 229, 245);">
+                        <a href="/palette/f6e5f5fbf4f9f6e7e6b9cced"></a>
+                        <span onclick="copy(this)">#F6E5F5</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f6e5f5fbf4f9f6e7e6b9cced&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="43" data-code="f3f8ffdeecffc6cfffe8d3ff" style="animation-delay: 1290ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(232, 211, 255);">
+                        <a href="/palette/f3f8ffdeecffc6cfffe8d3ff"></a>
+                        <span onclick="copy(this)">#E8D3FF</span></div>
+                    <div class="place c2" style="background-color: rgb(198, 207, 255);">
+                        <a href="/palette/f3f8ffdeecffc6cfffe8d3ff"></a>
+                        <span onclick="copy(this)">#C6CFFF</span></div>
+                    <div class="place c1" style="background-color: rgb(222, 236, 255);">
+                        <a href="/palette/f3f8ffdeecffc6cfffe8d3ff"></a>
+                        <span onclick="copy(this)">#DEECFF</span></div>
+                    <div class="place c0" style="background-color: rgb(243, 248, 255);">
+                        <a href="/palette/f3f8ffdeecffc6cfffe8d3ff"></a>
+                        <span onclick="copy(this)">#F3F8FF</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;f3f8ffdeecffc6cfffe8d3ff&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="44" data-code="bce6ebfdcfdffbbedffca3cc" style="animation-delay: 1320ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(252, 163, 204);">
+                        <a href="/palette/bce6ebfdcfdffbbedffca3cc"></a>
+                        <span onclick="copy(this)">#FCA3CC</span></div>
+                    <div class="place c2" style="background-color: rgb(251, 190, 223);">
+                        <a href="/palette/bce6ebfdcfdffbbedffca3cc"></a>
+                        <span onclick="copy(this)">#FBBEDF</span></div>
+                    <div class="place c1" style="background-color: rgb(253, 207, 223);">
+                        <a href="/palette/bce6ebfdcfdffbbedffca3cc"></a>
+                        <span onclick="copy(this)">#FDCFDF</span></div>
+                    <div class="place c0" style="background-color: rgb(188, 230, 235);">
+                        <a href="/palette/bce6ebfdcfdffbbedffca3cc"></a>
+                        <span onclick="copy(this)">#BCE6EB</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;bce6ebfdcfdffbbedffca3cc&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+            <div class="item" data-index="45" data-code="ffe6ebdefcfccbf1f5a6e3e9" style="animation-delay: 1350ms;">
+                <div class="palette">
+                    <div class="place c3" style="background-color: rgb(166, 227, 233);">
+                        <a href="/palette/ffe6ebdefcfccbf1f5a6e3e9"></a>
+                        <span onclick="copy(this)">#A6E3E9</span></div>
+                    <div class="place c2" style="background-color: rgb(203, 241, 245);">
+                        <a href="/palette/ffe6ebdefcfccbf1f5a6e3e9"></a>
+                        <span onclick="copy(this)">#CBF1F5</span></div>
+                    <div class="place c1" style="background-color: rgb(222, 252, 252);">
+                        <a href="/palette/ffe6ebdefcfccbf1f5a6e3e9"></a>
+                        <span onclick="copy(this)">#DEFCFC</span></div>
+                    <div class="place c0" style="background-color: rgb(255, 230, 235);">
+                        <a href="/palette/ffe6ebdefcfccbf1f5a6e3e9"></a>
+                        <span onclick="copy(this)">#FFE6EB</span></div>
+                </div>
+                <div class="flex">
+                    <div class="actions flex">
+                        <div class="button like" onclick="like(&quot;ffe6ebdefcfccbf1f5a6e3e9&quot;)" status="on">
+                            <div class="icon" icon="like"></div>
+                            <span>Like</span>Like</div></div>
+                    <span class="date">Today</span></div>
+            </div>
+        </div>
+    </div>
+    <script>$(document).ready(function() {
+        getLikes();
+        itemIndex = 0;
+        myCollection.reverse().forEach(function(code) {
+            placeItem('likesGrid', code);
+        });
+
+        if (myCollection.length > 1) {
+            $('h1 span').html('' + myCollection.length + ' palettes');
+        } else {
+            $('h1 span').html('' + myCollection.length + ' palette');
+        }
+        if (myCollection.length < 1) {
+            $('.noLikes').show();
+        }
+
+        $('.likesGrid .button.like').append('Like');
+
+    });</script>
+    <div class="feed global">
+        <div class="item hide">
+            <div class="palette">
+                <div class="place c3">
+                    <a>
+                    </a>
+                    <span onclick="copy(this)"></span>
+                </div>
+                <div class="place c2">
+                    <a>
+                    </a>
+                    <span onclick="copy(this)"></span>
+                </div>
+                <div class="place c1">
+                    <a>
+                    </a>
+                    <span onclick="copy(this)"></span>
+                </div>
+                <div class="place c0">
+                    <a>
+                    </a>
+                    <span onclick="copy(this)"></span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions flex">
+                    <div class="button like">
+                        <div class="icon" icon="like"></div>
+                        <span>Like</span></div>
+                </div>
+                <span class="date">Today</span></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
